@@ -1,7 +1,7 @@
 
 
 <!-- grafikli üst kısım -->
-<div class= "relative p-4 container flex space-x-4" style=" margin-left:10%; margin-right:10%; justify-content:center; gap:10%">
+<div class= "relative p-4 container flex space-x-4" style=" justify-content:center; gap:10%">
 
     <!-- pie chart -->
     
@@ -98,7 +98,7 @@
 
 
     <!-- yazı kartı -->
-    <a href="#" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 " style="padding: 3%;">
+    <div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 " style="padding: 3%;">
     
             <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Top students:</h2>
             <ol class="max-w-md space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400">
@@ -112,13 +112,13 @@
                     <span class="font-semibold text-gray-900 dark:text-white">Leslie Livingston</span> with <span class="font-semibold text-gray-900 dark:text-white">57</span> points
                 </li>
             </ol>
-    </a>
+    </div>
 
-
+ 
 </div>
 
 <!-- listeli alt kısım -->
-<div class= "relative p-4" style=" margin-left:10%; margin-right:10%">
+<div class= "relative p-4" >
 
     <!-- liste -->
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -169,12 +169,10 @@
                     </ul>
                 </div>
             </div>
+
             <label for="table-search" class="sr-only">Search</label>
-            <div class="relative">
-                <div class="absolute inset-y-0 left-0 rtl:inset-r-0 rtl:right-0 flex items-center ps-3 pointer-events-none">
-                    <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
-                </div>
-                <input type="text" id="table-search" class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for items">
+            <div class="relative " >
+                <input type="text" id="table-search" class="block flex p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for items">
             </div>
         </div>
         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -199,29 +197,32 @@
                 </tr>
             </thead>
             <tbody>
+                <% @transaction.each do |transaction| %>
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 h-10" style="text-align:center">
                     
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        Harcama
+                        <%= transaction.desc %>   
                     </th>
                     <td class="px-6 py-4 " >
-                        Silver
+                        <%= transaction.date %>
                     </td>
                     <td class="px-6 py-4" >
-                        Laptop
+                        <%= transaction.category %>
                     </td>
                     <td class="px-6 py-4" >
-                        $2999
+                        <%= transaction.amount %>
                     </td>
                     <td class="px-6 py-4" >
-                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Sil</a>
+                        <%= link_to "Detaylar", transaction, class: "rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
                     </td>
                 </tr>
-                
+                <% end %>
             </tbody>
         </table>
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <%= link_to "İşlem Listesine Git", transactions_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium"%>
+        </div>
     </div>
-
 </div>
 
 
@@ -289,6 +290,6 @@
     chart.render();
   }
   
-</script>
+ </script>
 
 

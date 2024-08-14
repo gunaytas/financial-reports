@@ -1,0 +1,17 @@
+<div class="mx-auto md:w-2/3 w-full flex">
+  <div class="mx-auto">
+    <% if notice.present? %>
+      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+    <% end %>
+
+    <%= render @transaction %>
+    <div class="flex" style="justify-content:center;">
+      <%= link_to "İşlemi Düzenle", edit_transaction_path(@transaction), class: "rounded-lg py-3 px-5 inline-block font-medium" %>
+      <%= link_to "İşlem Listesine Dön", transactions_path, class: "rounded-lg py-3 px-5 inline-block font-medium" %>
+      <div class="inline-block ml-2">
+        <%= button_to "İşlemi Sil", @transaction, method: :delete, class: "rounded-lg py-3 px-5 font-medium" %>
+      </div>
+    </div>
+  </div>
+</div>
+

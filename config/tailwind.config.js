@@ -1,5 +1,6 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 const colors = require('tailwindcss/colors')
+/** @type {import('tailwindcss').Config} */
 
 module.exports = {
 
@@ -17,6 +18,12 @@ module.exports = {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },
+      colors: {
+        gray: colors.coolGray,
+        blue: colors.lightBlue,
+        red: colors.rose,
+        pink: colors.fuchsia,
+      },
     },
     screens: {
       sm: '480px',
@@ -25,11 +32,9 @@ module.exports = {
       xl: '1440px',
     },
     colors: {
-      gray: colors.coolGray,
-      blue: colors.lightBlue,
-      red: colors.rose,
-      pink: colors.fuchsia,
+      'neutral': '#a3a3a3',
     },
+    
     fontFamily: {
       sans: ['Graphik', 'sans-serif'],
       serif: ['Merriweather', 'serif'],
