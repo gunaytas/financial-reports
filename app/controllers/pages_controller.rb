@@ -1,19 +1,19 @@
 class PagesController < ApplicationController
+  before_action :authenticate_user!
     def home
-      @transaction = Transaction.all 
+      @transaction = current_user.transactions
     end
 
     def profile
+      @user = current_user
     end
 
     def about
-      @abouts= About.first
       @about = About.all
     end
 
     def report
     end
 
-    
   end
   

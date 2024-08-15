@@ -1,9 +1,10 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
 
   # GET /transactions or /transactions.json
   def index
-    @transaction = Transaction.all
+    @transaction = current_user.transactions
   end
 
   # GET /transactions/1 or /transactions/1.json
@@ -13,7 +14,7 @@ class TransactionsController < ApplicationController
 
   # GET /transactions/new
   def new
-    @transaction = Transaction.new
+    @transaction = current_user.transactions.build
   end
 
   # GET /transactions/1/edit
@@ -22,8 +23,7 @@ class TransactionsController < ApplicationController
 
   # POST /transactions or /transactions.json
   def create
-    transaction_params = params.require(:transaction).permit(:amount, :income)
-    @transaction = Transaction.new(transaction_params)
+    @transaction = current_user.transactions.build(transaction_params)
 
     respond_to do |format|
       if @transaction.save
@@ -34,7 +34,6 @@ class TransactionsController < ApplicationController
         format.json { render json: @transaction.errors, status: :unprocessable_entity }
       end
     end
-    byebug
   end
 
   # PATCH/PUT /transactions/1 or /transactions/1.json
@@ -63,11 +62,11 @@ class TransactionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_transaction
-      @transaction = Transaction.find(params[:id])
+      @transaction = current_user.transactions.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def transaction_params
-      params.require(:transaction).permit(:desc, :date, :category, :amount)
+      params.require(:transaction).permit(:desc, :date, :category, :amount, :income)    
     end
 end
