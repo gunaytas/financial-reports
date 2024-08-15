@@ -30,12 +30,25 @@
                     <td class="px-6 py-4 " >
                         <%= transaction.date %>
                     </td>
-                    <td class="px-6 py-4" >
-                        <%= transaction.category %>
-                    </td>
-                    <td class="px-6 py-4" >
-                        <%= transaction.amount %>
-                    </td>
+                    <% if transaction.category.blank? %>
+                        <td class="px-6 py-4" >
+                            <%= "-" %>
+                        </td>
+                      <% else %>
+                        <td class="px-6 py-4" >
+                            <%= transaction.category %>
+                        </td>
+                      <% end %>
+
+                    <% if transaction.income == true %>
+                        <td class="px-6 py-4 text-green-500 font-bold">
+                            <%= + transaction.amount %>
+                        </td>
+                        <% else %>
+                        <td class="px-6 py-4 text-red-500 font-bold">
+                            <%= - transaction.amount %>
+                        </td>
+                        <% end %>
                     
                 </tr>
             </tbody>

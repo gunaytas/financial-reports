@@ -4,7 +4,8 @@ class TransactionsController < ApplicationController
 
   # GET /transactions or /transactions.json
   def index
-    @transaction = current_user.transactions
+    @transactions = current_user.transactions.order(created_at: :desc)
+
   end
 
   # GET /transactions/1 or /transactions/1.json
