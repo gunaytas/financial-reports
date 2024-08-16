@@ -86,21 +86,17 @@
                         </li>
                         </ul>
                     </div>
-                    <a href="#" class="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-purple-600 hover:text-purple-700 dark:hover:text-purple-500  hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2">
-                        Traffic analysis
-                        <svg class="w-2.5 h-2.5 ms-1.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-                        </svg>
-                    </a>
+                    
             </div>
         </div>
     </div>
 
 
     <!-- yazı kartı -->
-    <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6" style="padding: 3%;">
-    
-            <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Gelir-Gider</h2>
+    <div class="grid max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6" style="padding: 3%; gap:2rem; align-items:center;">
+
+        <div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 ">
+            <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Toplam Gelir-Gider</h2>
             <ol class="max-w-md space-y-1 text-gray-500 list-inside dark:text-gray-400">
                 <li>
                     <span class="font-semibold text-gray-900 dark:text-white">Toplam Gelir: <%= @income_total%></span>  <span class="font-semibold text-gray-900 dark:text-white"></span> TL
@@ -108,26 +104,20 @@
                 <li>
                     <span class="font-semibold text-gray-900 dark:text-white">Toplam Gider: <%= @expense_total%></span>  <span class="font-semibold text-gray-900 dark:text-white"></span> TL
                 </li>
+            </ol>    
+        </div>
+        <div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 ">
+            <h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Kategorilere Göre Harcamalar</h2>
+            <% @categories.each do |category| %>
                 <li>
-                    <span class="font-semibold text-gray-900 dark:text-white">Yiyecek-İçecek: <%= @food_total%></span>  <span class="font-semibold text-gray-900 dark:text-white"></span> TL
+                    <span class="font-semibold text-gray-900 dark:text-white"><%= category %>: <%= @category_amount[category] %></span>  <span class="font-semibold text-gray-900 dark:text-white"></span> TL
                 </li>
-                <li>
-                    <span class="font-semibold text-gray-900 dark:text-white">Giyim: <%= @clothing_total%></span>  <span class="font-semibold text-gray-900 dark:text-white"></span> TL
-                </li>
-                <li>
-                    <span class="font-semibold text-gray-900 dark:text-white">Elektronik: <%= @electronic_total%></span>  <span class="font-semibold text-gray-900 dark:text-white"></span> TL
-                </li>
-                <li>
-                    <span class="font-semibold text-gray-900 dark:text-white">Sağlık: <%= @health_total%></span>  <span class="font-semibold text-gray-900 dark:text-white"></span> TL
-                </li>
-                <li>
-                    <span class="font-semibold text-gray-900 dark:text-white">Eğlence: <%= @entertainment_total%></span>  <span class="font-semibold text-gray-900 dark:text-white"></span> TL
-                </li>
-            </ol>
+            <% end %>
+        </div> 
     </div>
 
- 
 </div>
+
 
 <!-- listeli alt kısım -->
 <div class= "relative p-4" >
@@ -210,7 +200,7 @@
             </thead>
             <tbody>
                 <% if @transactions.present? %>
-                <% @transactions.each do |transaction| %>
+                <% @transactions.take(3).each do |transaction| %>
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 h-10" style="text-align:center">
                     
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -249,9 +239,8 @@
             </tbody>
         </table>
         <div style="display: flex; justify-content: center; align-items: center;">
-            <%= link_to "İşlem Listesine Git", transactions_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium"%>
+            <%= link_to "Daha Fazla Gör", transactions_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium"%>
         </div>
-        
     </div>
 </div>
 
@@ -281,7 +270,7 @@
           }
         },
       },
-      labels: ["Yiyecek-İçecek", "Giyim", "Elektronik", "Sağlık", "Eğlence"],
+      labels: <%= @categories.to_json.html_safe %>,
       dataLabels: {
         enabled: true,
         style: {
