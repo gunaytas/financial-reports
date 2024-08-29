@@ -7,7 +7,5 @@ Rails.application.routes.draw do
   get 'about', to: 'pages#about'
   get 'report', to: 'pages#report'
   get 'transaction', to: 'pages#transaction'
-
-
   
 end

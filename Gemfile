@@ -29,6 +29,7 @@ gem "jbuilder"
 gem "devise"
 gem "byebug"
 gem "groupdate"
+gem "rails-erd"
 
 
 # Use Redis adapter to run Action Cable in production
