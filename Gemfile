@@ -30,6 +30,7 @@ gem "devise"
 gem "byebug"
 gem "groupdate"
 gem "rails-erd"
+gem "railroady"
 
 
 # Use Redis adapter to run Action Cable in production

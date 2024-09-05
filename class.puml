@@ -1,0 +1,36 @@
+@startuml 1
+class User {
+  -email: string
+  -encrypted_password: string
+  -reset_password_token: string
+  -reset_password_sent_at: datetime
+  -remember_created_at: datetime
+  -created_at: datetime
+  -updated_at: datetime
+  -name: string
+  +has_many :transactions
+  +devise: database_authenticatable, registerable, recoverable, rememberable, validatable
+}
+
+class Transaction {
+  -desc: string
+  -date: date
+  -category: string
+  -amount: integer
+  -income: boolean
+  -user_id: integer
+  -created_at: datetime
+  -updated_at: datetime
+  +belongs_to :user
+}
+
+class About {
+  -title: string
+  -body: text
+  -created_at: datetime
+  -updated_at: datetime
+  +validates :title, :body presence: true
+}
+
+User --> Transaction : "1-n"
+@enduml
