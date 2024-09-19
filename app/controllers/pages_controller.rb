@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
-    
+  before_action :authenticate_user!, only: [:report]
+  
     def home
       if user_signed_in?
         perform_calculations(current_user.transactions)
@@ -26,10 +27,23 @@ class PagesController < ApplicationController
         perform_calculations(example_trans)
       end
       @total = @income_total - @expense_total 
-   
+      @monthlyexpense = current_user.monthlyexpense
+      
+      if request.post? 
+        if current_user.update(user_params)
+          redirect_to report_path, notice: 'Aylık harcama miktarı başarıyla güncellendi.'
+        else
+          render :report
+        end
+      end
+      
     end
 
     private
+
+    def user_params
+      params.require(:user).permit(:monthlyexpense)
+    end
 
     def perform_calculations(transactions)
       @categories = ["Yiyecek-İçecek", "Giyim", "Elektronik", "Sağlık", "Eğlence"]

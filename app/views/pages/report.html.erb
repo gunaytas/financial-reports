@@ -72,7 +72,7 @@
                     </li>
                     </ul>
                 </div>
-                <select id="dynamicList" class="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"></select>                
+                <!-- <select id="dynamicList" class="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"></select>      -->          
             </div>
         </div>
     </div>
@@ -205,15 +205,47 @@
         
     </script>
     
-    <div class="grid max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6" style="padding: 3%; gap:2rem; align-items:center;">
-        
+    <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6" style="padding: 3%; gap:2rem;">
+        <div>
+            <%= form_with model: current_user, url: report_path, method: :post, local: true do |form| %>
+                <div class="max-w-sm mx-auto">
+                <%= form.label :monthlyexpense, "Aylık harcama miktarı belirleyin:", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+                <%= form.number_field :monthlyexpense, placeholder: "1000", class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", required: true %>
+                </div>
+
+                <div class="mt-4" >
+                <%= form.submit "Kaydet", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+                </div>
+            <% end %>
+        </div>
+        <span class="font-semibold text-gray-900 dark:text-white text-lg">Aylık harcama hedefi: <%= @monthlyexpense%></span> 
+        <% if @expense_total %>
+        <div class="text-lg mt-4">
+            <% difference = @monthlyexpense - @expense_total %>
+            <% if difference > 0 %>
+                <p class="text-green-600">Harika! Bu ayki harcamalarınız, belirlenen hedefin <%= number_to_percentage((difference.to_f / @monthlyexpense) * 100, precision: 2) %> altında.</p>
+                <p>Ekstra bütçenizle yatırım yapmayı veya birikim hesabınıza eklemeyi düşünebilirsiniz.</p>
+                <ul>
+                    <li>Hisse senetleri veya yatırım fonlarına yatırım yapabilirsiniz.</li>
+                    <li>Mevduat hesabı açarak riskinizi minimize edebilirsiniz.</li>
+                    <li>Emlak yatırımı düşünebilir veya altın gibi değerli metaller satın alabilirsiniz.</li>
+                </ul>
+            <% elsif difference < 0 %>
+                <p class="text-red-600">Bu ayki harcamalarınız, belirlenen hedefin <%= number_to_percentage((difference.abs.to_f / @monthlyexpense) * 100, precision: 2) %> üzerinde.</p>
+                <p>Giderlerinizi gözden geçirerek hangi kategoride tasarruf edebileceğinizi belirlemeye çalışın.</p>
+            <% else %>
+                <p class="text-blue-600">Tam olarak aylık hedefinize ulaştınız. Tebrikler!</p>
+            <% end %>
+        </div>
+    <% end %>
     </div>
+
 
     
 
 </div>
 
-
+ <!--
 
     <script>
     const fruits = ["Apple", 'Banana', 'Orange', 'Mango', 'Grapes'];
@@ -234,3 +266,4 @@
 
     </script>
 
+-->

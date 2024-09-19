@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   get 'report', to: 'pages#report'
   get 'transaction', to: 'pages#transaction'
   
+  post 'report', to: 'pages#report'
 end
