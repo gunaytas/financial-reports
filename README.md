@@ -5,6 +5,15 @@ Bu proje, kullanıcıların kişisel finansal durumlarını etkili bir şekilde 
 
 ---
 
+## Ekran Görüntüleri
+Projenin ana arayüzünü ve temel özelliklerini gösteren bazı ekran görüntüleri:
+
+![Giriş Ekranı](/screenshots/anasayfa.png)
+
+![İşlem Listesi](/screenshots/image.png)
+
+---
+
 ## Temel Özellikler
 - **Gelir ve Gider Takibi:** Tüm finansal işlemlerinizi güvenli bir şekilde kaydedin ve yönetin.
 - **Kategorilendirme:** Detaylı analiz için işlemleri farklı kategorilere ayırın.
